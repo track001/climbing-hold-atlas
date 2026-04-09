@@ -199,4 +199,38 @@
       }
     ]
   }
+  ,
+  {
+    "brand": "Crux Forged Climbing",
+    "order_id": "LE1PCKQX0",
+    "date": "2026-04-09",
+    "currency": "USD",
+    "currency_name": "US Dollar",
+    "shipping": 8.10,
+    "tax": null,
+    "total": 43.25,
+    "carrier": "Ground Advantage",
+    "items": [
+      {
+        "name": "20-22mm Mask Crimp - Wood Climbing Hold",
+        "type": "wood hold",
+        "quantity": 1,
+        "price": 13.30,
+        "details": "20mm Walnut"
+      },
+      {
+        "name": "10° Incut Medium Domino Pinch - Wood Climbing Hold",
+        "type": "wood hold",
+        "quantity": 1,
+        "price": 11.40
+      },
+      {
+        "name": "10mm 40° Incut Micro Pinch - Wood Climbing Hold",
+        "type": "wood hold",
+        "quantity": 1,
+        "price": 10.45
+      }
+    ],
+    "notes": "Discount code BUNDLE3 applied. Total savings: $1.85."
+  }
 ]
