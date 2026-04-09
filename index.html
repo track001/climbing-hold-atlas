@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Climbing Hold Atlas</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card: #171a21;
+      --muted: #a7b0c0;
+      --text: #f3f5f8;
+      --accent: #d94b4b;
+      --border: #2a3140;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0f1115 0%, #151922 100%);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    header {
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2.2rem;
+    }
+
+    .sub {
+      color: var(--muted);
+      max-width: 700px;
+      line-height: 1.5;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin: 24px 0 34px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    input, select {
+      background: #10141b;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+    }
+
+    input {
+      min-width: 250px;
+      flex: 1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
+
+    .brand-title {
+      margin: 0 0 6px;
+      font-size: 1.25rem;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .type {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(217, 75, 75, 0.15);
+      color: #ffb4b4;
+      font-size: 0.82rem;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      margin: 14px 0 8px;
+      color: #d8dee9;
+    }
+
+    ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+      line-height: 1.5;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    a {
+      color: #ff8f8f;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      margin-top: 34px;
+      font-size: 0.92rem;
+    }
+
+    .hidden-note {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Climbing Hold Atlas</h1>
+      <p class="sub">
+        A living inventory of climbing holds, gear, and brands — tracking origin, cost, and company context.
+      </p>
+    </header>
+
+    <section class="stats" id="stats"></section>
+
+    <section class="controls">
+      <input type="text" id="search" placeholder="Search by brand, country, or type" />
+      <select id="countryFilter">
+        <option value="all">All countries</option>
+      </select>
+    </section>
+
+    <section class="grid" id="brandGrid"></section>
+
+    <p class="footer-note">
+      Built from JSON files in this repo. Public site version excludes anything marked hidden.
+    </p>
+  </div>
+
+  <script>
+    async function loadData() {
+      const [brandsRes, ordersRes] = await Promise.all([
+        fetch('./data/brands.json'),
+        fetch('./data/orders.json')
+      ]);
+
+      const brands = await brandsRes.json();
+      const orders = await ordersRes.json();
+
+      return { brands, orders };
+    }
+
+    function money(value, currency) {
+      if (value === null || value === undefined) return 'Not tracked';
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency || 'USD'
+      }).format(value);
+    }
+
+    function buildStats(brands, orders) {
+      const visibleOrders = orders.filter(o => !o.hidden);
+      const visibleBrands = brands.filter(b => !b.hidden);
+
+      const countries = new Set(
+        visibleBrands
+          .map(b => b.headquarters?.country)
+          .filter(Boolean)
+      );
+
+      const totalOrders = visibleOrders.length;
+
+      const stats = [
+        { label: 'Visible brands', value: visibleBrands.length },
+        { label: 'Countries', value: countries.size },
+        { label: 'Orders logged', value: totalOrders }
+      ];
+
+      const statsEl = document.getElementById('stats');
+      statsEl.innerHTML = stats.map(stat => `
+        <div class="stat">
+          <div class="stat-label">${stat.label}</div>
+          <div class="stat-value">${stat.value}</div>
+        </div>
+      `).join('');
+    }
+
+    function populateCountryFilter(brands) {
+      const filter = document.getElementById('countryFilter');
+      const countries = [...new Set(
+        brands
+          .filter(b => !b.hidden)
+          .map(b => b.headquarters?.country)
+          .filter(Boolean)
+      )].sort();
+
+      countries.forEach(country => {
+        const option = document.createElement('option');
+        option.value = country;
+        option.textContent = country;
+        filter.appendChild(option);
+      });
+    }
+
+    function render(brands, orders) {
+      const grid = document.getElementById('brandGrid');
+      const searchValue = document.getElementById('search').value.toLowerCase().trim();
+      const countryValue = document.getElementById('countryFilter').value;
+
+      const visibleBrands = brands.filter(brand => {
+        if (brand.hidden) return false;
+
+        const text = [
+          brand.name,
+          brand.type,
+          brand.headquarters?.city,
+          brand.headquarters?.country,
+          brand.notes
+        ].join(' ').toLowerCase();
+
+        const matchesSearch = !searchValue || text.includes(searchValue);
+        const matchesCountry = countryValue === 'all' || brand.headquarters?.country === countryValue;
+
+        return matchesSearch && matchesCountry;
+      });
+
+      grid.innerHTML = visibleBrands.map(brand => {
+        const brandOrders = orders.filter(order => order.brand === brand.name && !order.hidden);
+        const totalSpent = brandOrders.reduce((sum, order) => sum + (order.total || 0), 0);
+        const currencies = [...new Set(brandOrders.map(o => o.currency).filter(Boolean))];
+        const displayTotal = currencies.length === 1 && brandOrders.length
+          ? money(totalSpent, currencies[0])
+          : brandOrders.length
+            ? 'Mixed currencies'
+            : 'No orders logged';
+
+        return `
+          <article class="card">
+            <h2 class="brand-title">${brand.name}</h2>
+            <div class="meta">
+              ${brand.headquarters?.city || 'Unknown city'}, ${brand.headquarters?.country || 'Unknown country'}
+            </div>
+            <div class="type">${brand.type || 'Unknown type'}</div>
+
+            <div class="section-title">Website</div>
+            <div><a href="${brand.website}" target="_blank" rel="noopener noreferrer">${brand.website}</a></div>
+
+            <div class="section-title">Total logged spend</div>
+            <div>${displayTotal}</div>
+
+            <div class="section-title">Orders</div>
+            ${
+              brandOrders.length
+                ? `<ul>${brandOrders.map(order => `
+                    <li>
+                      ${order.date || 'No date'} • ${money(order.total, order.currency)}
+                    </li>
+                  `).join('')}</ul>`
+                : `<div>No public orders logged.</div>`
+            }
+
+            ${brand.contacts?.length ? `
+              <div class="section-title">Contacts</div>
+              <div>${brand.contacts.join(', ')}</div>
+            ` : ''}
+
+            ${brand.notes ? `
+              <div class="section-title">Notes</div>
+              <div>${brand.notes}</div>
+            ` : ''}
+          </article>
+        `;
+      }).join('');
+    }
+
+    loadData()
+      .then(({ brands, orders }) => {
+        buildStats(brands, orders);
+        populateCountryFilter(brands);
+        render(brands, orders);
+
+        document.getElementById('search').addEventListener('input', () => render(brands, orders));
+        document.getElementById('countryFilter').addEventListener('change', () => render(brands, orders));
+      })
+      .catch(error => {
+        document.getElementById('brandGrid').innerHTML = `
+          <article class="card">
+            <h2 class="brand-title">Data failed to load</h2>
+            <div class="meta">Check that data/brands.json and data/orders.json exist and contain valid JSON.</div>
+            <div>${error.message}</div>
+          </article>
+        `;
+      });
+  </script>
+</body>
+</html>
