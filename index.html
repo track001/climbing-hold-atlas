@@ -2,150 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Climbing Hold Atlas</title>
+
   <style>
     :root {
-      --bg: #0f1115;
-      --card: #171a21;
-      --muted: #a7b0c0;
-      --text: #f3f5f8;
-      --accent: #d94b4b;
-      --border: #2a3140;
+      --bg: #0b1410;
+      --card: #101c16;
+      --muted: #9fb3a8;
+      --text: #e6f2ec;
+      --accent: #3aa76d;
+      --accent-soft: #2e7d55;
+      --border: #1f2d26;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #0f1115 0%, #151922 100%);
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #0b1410, #121f18);
       color: var(--text);
     }
 
     .wrap {
       max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 20px 56px;
-    }
-
-    header {
-      margin-bottom: 28px;
+      margin: auto;
+      padding: 32px 20px;
     }
 
     h1 {
-      margin: 0 0 10px;
-      font-size: 2.2rem;
+      margin-bottom: 6px;
     }
 
     .sub {
       color: var(--muted);
-      max-width: 700px;
-      line-height: 1.5;
+      margin-bottom: 24px;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin: 24px 0 34px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
     .stat {
-      background: rgba(255,255,255,0.03);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: 12px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input, select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0e1813;
+      color: var(--text);
+    }
+
+    input { flex: 1; }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card {
+      background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 16px;
     }
 
-    .stat-label {
+    .brand-title {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    .meta {
       color: var(--muted);
       font-size: 0.9rem;
       margin-bottom: 8px;
     }
 
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
-
-    input, select {
-      background: #10141b;
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 0.95rem;
-    }
-
-    input {
-      min-width: 250px;
-      flex: 1;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-    }
-
-    .brand-title {
-      margin: 0 0 6px;
-      font-size: 1.25rem;
-    }
-
-    .meta {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-      line-height: 1.4;
-    }
-
     .type {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(217, 75, 75, 0.15);
-      color: #ffb4b4;
-      font-size: 0.82rem;
-      margin-bottom: 12px;
+      font-size: 0.8rem;
+      color: #a8e6c3;
+      margin-bottom: 10px;
     }
 
     .section-title {
-      font-size: 0.95rem;
-      margin: 14px 0 8px;
-      color: #d8dee9;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: #cfe8db;
     }
 
     ul {
-      margin: 8px 0 0 18px;
+      margin: 6px 0 0 16px;
       padding: 0;
-      line-height: 1.5;
-    }
-
-    li {
-      margin-bottom: 4px;
     }
 
     a {
-      color: #ff8f8f;
+      color: #8ee0b7;
       text-decoration: none;
     }
 
@@ -153,196 +120,150 @@
       text-decoration: underline;
     }
 
-    .footer-note {
-      color: var(--muted);
-      margin-top: 34px;
-      font-size: 0.92rem;
+    select.file-dropdown {
+      width: 100%;
+      margin-top: 6px;
     }
 
-    .hidden-note {
-      display: none;
-    }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <h1>Climbing Hold Atlas</h1>
-      <p class="sub">
-        A living inventory of climbing holds, gear, and brands — tracking origin, cost, and company context.
-      </p>
-    </header>
+<div class="wrap">
 
-    <section class="stats" id="stats"></section>
-
-    <section class="controls">
-      <input type="text" id="search" placeholder="Search by brand, country, or type" />
-      <select id="countryFilter">
-        <option value="all">All countries</option>
-      </select>
-    </section>
-
-    <section class="grid" id="brandGrid"></section>
-
-    <p class="footer-note">
-      Built from JSON files in this repo. Public site version excludes anything marked hidden.
-    </p>
+  <h1>Climbing Hold Atlas</h1>
+  <div class="sub">
+    A living inventory of climbing holds, gear, and brands.
   </div>
 
-  <script>
-    async function loadData() {
-      const [brandsRes, ordersRes] = await Promise.all([
-        fetch('./data/brands.json'),
-        fetch('./data/orders.json')
-      ]);
+  <div class="stats" id="stats"></div>
 
-      const brands = await brandsRes.json();
-      const orders = await ordersRes.json();
+  <div class="controls">
+    <input id="search" placeholder="Search..." />
+    <select id="countryFilter">
+      <option value="all">All countries</option>
+    </select>
+  </div>
 
-      return { brands, orders };
-    }
+  <div class="grid" id="grid"></div>
 
-    function money(value, currency) {
-      if (value === null || value === undefined) return 'Not tracked';
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currency || 'USD'
-      }).format(value);
-    }
+</div>
 
-    function buildStats(brands, orders) {
-      const visibleOrders = orders.filter(o => !o.hidden);
-      const visibleBrands = brands.filter(b => !b.hidden);
+<script>
 
-      const countries = new Set(
-        visibleBrands
-          .map(b => b.headquarters?.country)
-          .filter(Boolean)
-      );
+async function load() {
+  const brands = await fetch('./data/brands.json').then(r => r.json());
+  const orders = await fetch('./data/orders.json').then(r => r.json());
 
-      const totalOrders = visibleOrders.length;
+  buildStats(brands, orders);
+  buildFilter(brands);
+  render(brands, orders);
 
-      const stats = [
-        { label: 'Visible brands', value: visibleBrands.length },
-        { label: 'Countries', value: countries.size },
-        { label: 'Orders logged', value: totalOrders }
-      ];
+  document.getElementById('search').oninput = () => render(brands, orders);
+  document.getElementById('countryFilter').onchange = () => render(brands, orders);
+}
 
-      const statsEl = document.getElementById('stats');
-      statsEl.innerHTML = stats.map(stat => `
-        <div class="stat">
-          <div class="stat-label">${stat.label}</div>
-          <div class="stat-value">${stat.value}</div>
-        </div>
-      `).join('');
-    }
+function buildStats(brands, orders) {
+  const countries = new Set(brands.map(b => b.headquarters?.country).filter(Boolean));
 
-    function populateCountryFilter(brands) {
-      const filter = document.getElementById('countryFilter');
-      const countries = [...new Set(
-        brands
-          .filter(b => !b.hidden)
-          .map(b => b.headquarters?.country)
-          .filter(Boolean)
-      )].sort();
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><b>${brands.length}</b><br>Brands</div>
+    <div class="stat"><b>${countries.size}</b><br>Countries</div>
+    <div class="stat"><b>${orders.length}</b><br>Orders</div>
+  `;
+}
 
-      countries.forEach(country => {
-        const option = document.createElement('option');
-        option.value = country;
-        option.textContent = country;
-        filter.appendChild(option);
-      });
-    }
+function buildFilter(brands) {
+  const select = document.getElementById('countryFilter');
+  const countries = [...new Set(brands.map(b => b.headquarters?.country).filter(Boolean))];
 
-    function render(brands, orders) {
-      const grid = document.getElementById('brandGrid');
-      const searchValue = document.getElementById('search').value.toLowerCase().trim();
-      const countryValue = document.getElementById('countryFilter').value;
+  countries.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    select.appendChild(opt);
+  });
+}
 
-      const visibleBrands = brands.filter(brand => {
-        if (brand.hidden) return false;
+function money(v, c) {
+  if (v == null) return "Not tracked";
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: c || 'USD' }).format(v);
+}
 
-        const text = [
-          brand.name,
-          brand.type,
-          brand.headquarters?.city,
-          brand.headquarters?.country,
+function render(brands, orders) {
+  const search = document.getElementById('search').value.toLowerCase();
+  const country = document.getElementById('countryFilter').value;
+
+  const filtered = brands.filter(b => {
+    const text = (b.name + b.type + b.notes + (b.headquarters?.country || "")).toLowerCase();
+    return text.includes(search) &&
+      (country === "all" || b.headquarters?.country === country);
+  });
+
+  document.getElementById('grid').innerHTML = filtered.map(brand => {
+
+    const brandOrders = orders.filter(o => o.brand === brand.name && !o.hidden);
+
+    return `
+      <div class="card">
+        <div class="brand-title">${brand.name}</div>
+        <div class="meta">${brand.headquarters?.city || ""}, ${brand.headquarters?.country || ""}</div>
+        <div class="type">${brand.type || ""}</div>
+
+        <div class="section-title">Website</div>
+        <a href="${brand.website}" target="_blank">${brand.website}</a>
+
+        <div class="section-title">Orders</div>
+        ${
+          brandOrders.length
+          ? `<ul>${brandOrders.map(o => `
+              <li>${o.date || "No date"} — ${money(o.total, o.currency)}</li>
+            `).join("")}</ul>`
+          : "No orders"
+        }
+
+        ${
+          brandOrders.map(o => o.delivery_timeline).filter(Boolean).length
+          ? `
+            <div class="section-title">Delivery</div>
+            <ul>
+              ${brandOrders.map(o => (o.delivery_timeline || []).map(d => `<li>${d}</li>`).join("")).join("")}
+            </ul>
+          `
+          : ""
+        }
+
+        ${
+          brand.files
+          ? `
+            <div class="section-title">Files</div>
+            <select class="file-dropdown" onchange="if(this.value) window.open(this.value)">
+              <option value="">Open file...</option>
+              ${brand.files.map(f => `<option value="${f.url}">${f.label}</option>`).join("")}
+            </select>
+          `
+          : ""
+        }
+
+        ${
+          brand.contacts
+          ? `<div class="section-title">Contacts</div>${brand.contacts.join(", ")}`
+          : ""
+        }
+
+        ${
           brand.notes
-        ].join(' ').toLowerCase();
+          ? `<div class="section-title">Notes</div>${brand.notes}`
+          : ""
+        }
 
-        const matchesSearch = !searchValue || text.includes(searchValue);
-        const matchesCountry = countryValue === 'all' || brand.headquarters?.country === countryValue;
+      </div>
+    `;
+  }).join("");
+}
 
-        return matchesSearch && matchesCountry;
-      });
+load();
 
-      grid.innerHTML = visibleBrands.map(brand => {
-        const brandOrders = orders.filter(order => order.brand === brand.name && !order.hidden);
-        const totalSpent = brandOrders.reduce((sum, order) => sum + (order.total || 0), 0);
-        const currencies = [...new Set(brandOrders.map(o => o.currency).filter(Boolean))];
-        const displayTotal = currencies.length === 1 && brandOrders.length
-          ? money(totalSpent, currencies[0])
-          : brandOrders.length
-            ? 'Mixed currencies'
-            : 'No orders logged';
-
-        return `
-          <article class="card">
-            <h2 class="brand-title">${brand.name}</h2>
-            <div class="meta">
-              ${brand.headquarters?.city || 'Unknown city'}, ${brand.headquarters?.country || 'Unknown country'}
-            </div>
-            <div class="type">${brand.type || 'Unknown type'}</div>
-
-            <div class="section-title">Website</div>
-            <div><a href="${brand.website}" target="_blank" rel="noopener noreferrer">${brand.website}</a></div>
-
-            <div class="section-title">Total logged spend</div>
-            <div>${displayTotal}</div>
-
-            <div class="section-title">Orders</div>
-            ${
-              brandOrders.length
-                ? `<ul>${brandOrders.map(order => `
-                    <li>
-                      ${order.date || 'No date'} • ${money(order.total, order.currency)}
-                    </li>
-                  `).join('')}</ul>`
-                : `<div>No public orders logged.</div>`
-            }
-
-            ${brand.contacts?.length ? `
-              <div class="section-title">Contacts</div>
-              <div>${brand.contacts.join(', ')}</div>
-            ` : ''}
-
-            ${brand.notes ? `
-              <div class="section-title">Notes</div>
-              <div>${brand.notes}</div>
-            ` : ''}
-          </article>
-        `;
-      }).join('');
-    }
-
-    loadData()
-      .then(({ brands, orders }) => {
-        buildStats(brands, orders);
-        populateCountryFilter(brands);
-        render(brands, orders);
-
-        document.getElementById('search').addEventListener('input', () => render(brands, orders));
-        document.getElementById('countryFilter').addEventListener('change', () => render(brands, orders));
-      })
-      .catch(error => {
-        document.getElementById('brandGrid').innerHTML = `
-          <article class="card">
-            <h2 class="brand-title">Data failed to load</h2>
-            <div class="meta">Check that data/brands.json and data/orders.json exist and contain valid JSON.</div>
-            <div>${error.message}</div>
-          </article>
-        `;
-      });
-  </script>
+</script>
 </body>
 </html>
