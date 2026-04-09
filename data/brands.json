@@ -94,14 +94,14 @@
   }
   ,
   {
-    "name": "Crux Forged Climbing",
-    "website": "https://cruxforgedclimbing.com/",
-    "type": "wood climbing holds",
-    "headquarters": {
-      "city": "TBD",
-      "state": null,
-      "country": "USA"
-    },
-    "notes": "Wood hold brand. Order included crimps and pinches."
-  }
+  "name": "Crux Forged Climbing",
+  "website": "https://cruxforgedclimbing.com/",
+  "type": "wood climbing holds",
+  "headquarters": {
+    "city": "Lexington",
+    "state": "Kentucky",
+    "country": "USA"
+  },
+  "notes": "Wood hold brand. Order included crimps and pinches."
+}
 ]
