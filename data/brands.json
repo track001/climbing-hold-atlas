@@ -5,17 +5,19 @@
     "type": "wooden holds, volumes, and training tools",
     "headquarters": {
       "city": "Jablonec nad Nisou",
+      "state": null,
       "country": "Czech Republic"
     },
     "contacts": ["Jakub", "Kwjet"],
     "notes": "Direct website order. Handcrafted wooden holds and volumes."
-  }, 
+  },
   {
     "name": "Secret Holds",
     "website": "https://secretholds.com/",
     "type": "climbing hold manufacturer",
     "headquarters": {
       "city": "Warszawa",
+      "state": null,
       "country": "Poland"
     },
     "company_name": "SECRET HOLDS - FIDES Engineering Sp. z o.o.",
@@ -28,6 +30,7 @@
     "type": "holds and apparel",
     "headquarters": {
       "city": "Salt Lake City",
+      "state": "Utah",
       "country": "USA"
     },
     "contacts": ["Kevin"],
@@ -39,6 +42,7 @@
     "type": "stone-texture climbing holds",
     "headquarters": {
       "city": "Pepperell",
+      "state": "Massachusetts",
       "country": "USA"
     },
     "notes": "Outdoor and rock-inspired hold style."
@@ -49,6 +53,7 @@
     "type": "holds, hardware, and training tools",
     "headquarters": {
       "city": "St. Paul",
+      "state": "Minnesota",
       "country": "USA"
     },
     "notes": "Multiple purchases across time, including factory seconds and DT line holds."
@@ -59,6 +64,7 @@
     "type": "climbing hold manufacturer",
     "headquarters": {
       "city": "Provo",
+      "state": "Utah",
       "country": "USA"
     },
     "notes": "Foothold-focused purchase."
@@ -68,7 +74,8 @@
     "website": "https://murkura.com/",
     "type": "bouldering streetwear",
     "headquarters": {
-      "city": "Colorado Springs, CO",
+      "city": "Colorado Springs",
+      "state": "Colorado",
       "country": "USA"
     },
     "notes": "Founded by Josh Felton. Local brand."
@@ -79,6 +86,7 @@
     "type": "climbing brand / collaboration",
     "headquarters": {
       "city": "Moutier",
+      "state": null,
       "country": "Switzerland"
     },
     "contacts": ["Antoine Bourcieu"],
