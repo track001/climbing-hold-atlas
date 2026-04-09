@@ -43,3 +43,31 @@ Future direction:
 - interactive globe
 - brand mapping
 - visual timelines
+
+## 🌐 Live Site
+
+- Main site: https://track001.github.io/climbing-hold-atlas/
+
+### 🔗 Data Endpoints (for debugging)
+
+- Brands: https://track001.github.io/climbing-hold-atlas/data/brands.json
+- Orders: https://track001.github.io/climbing-hold-atlas/data/orders.json
+
+---
+
+<details>
+<summary>⚙️ How this ties into the architecture (and how to debug GitHub Pages)</summary>
+
+### 🧱 Architecture
+
+This project is a static site built with:
+
+- `index.html` → UI + rendering logic
+- `data/brands.json` → brand metadata (origin, company info)
+- `data/orders.json` → purchase history (items, cost, relationships)
+
+The page loads data at runtime using:
+
+```js
+fetch('./data/brands.json')
+fetch('./data/orders.json')
