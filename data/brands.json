@@ -2,13 +2,13 @@
   {
     "name": "Lama Holds",
     "website": "https://www.lamaholds.cz/en/",
-    "type": "wooden holds and volumes",
+    "type": "wooden holds, volumes, and training tools",
     "headquarters": {
       "city": "Jablonec nad Nisou",
       "country": "Czech Republic"
     },
     "contacts": ["Jakub", "Kwjet"],
-    "notes": "Direct order, handcrafted wooden holds"
+    "notes": "Direct website order. Handcrafted wooden holds and volumes."
   },
   {
     "name": "Secret Holds",
@@ -18,19 +18,9 @@
       "city": "Warszawa",
       "country": "Poland"
     },
-    "company_name": "FIDES Engineering Sp. z o.o.",
-    "notes": "Sample hold shipment, customs clearance required"
-  },
-  {
-    "name": "FlatHold / Arken SA",
-    "website": "https://www.flathold.com/skate/",
-    "type": "climbing brand / skate collaboration",
-    "headquarters": {
-      "city": "Moutier",
-      "country": "Switzerland"
-    },
-    "contacts": ["Antoine Bourcieu"],
-    "notes": "Manual order, paid via wire, VAT covered by seller"
+    "company_name": "SECRET HOLDS - FIDES Engineering Sp. z o.o.",
+    "contacts": ["Maciej Bucki"],
+    "notes": "Relationship started through direct outreach. COMP yellow sample requested. Invited to connect at CWA Summit, but could not attend."
   },
   {
     "name": "Pusher",
@@ -40,7 +30,8 @@
       "city": "Salt Lake City",
       "country": "USA"
     },
-    "contacts": ["Kevin"]
+    "contacts": ["Kevin"],
+    "notes": "Mixed order with apparel and hold product."
   },
   {
     "name": "Real Stone Holds",
@@ -49,17 +40,18 @@
     "headquarters": {
       "city": "Pepperell",
       "country": "USA"
-    }
+    },
+    "notes": "Outdoor and rock-inspired hold style."
   },
   {
     "name": "Escape Climbing",
     "website": "https://escapeclimbing.com/",
-    "type": "holds, hardware, training tools",
+    "type": "holds, hardware, and training tools",
     "headquarters": {
       "city": "St. Paul",
       "country": "USA"
     },
-    "notes": "Factory seconds purchase"
+    "notes": "Multiple purchases across time, including factory seconds and DT line holds."
   },
   {
     "name": "Atomik Climbing Holds",
@@ -68,7 +60,8 @@
     "headquarters": {
       "city": "Provo",
       "country": "USA"
-    }
+    },
+    "notes": "Foothold-focused purchase."
   },
   {
     "name": "Murkura",
@@ -78,6 +71,6 @@
       "city": "TBD",
       "country": "TBD"
     },
-    "notes": "Sponsor / featured brand"
+    "notes": "Sponsor / featured brand."
   }
 ]
