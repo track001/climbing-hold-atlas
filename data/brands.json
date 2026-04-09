@@ -64,13 +64,13 @@
     "notes": "Foothold-focused purchase."
   },
   {
-    "name": "Murkura",
-    "website": "https://murkura.com/",
-    "type": "bouldering streetwear",
-    "headquarters": {
-      "city": "TBD",
-      "country": "TBD"
-    },
-    "notes": "Sponsor / featured brand."
-  }
+  "name": "Murkura",
+  "website": "https://murkura.com/",
+  "type": "bouldering streetwear",
+  "headquarters": {
+    "city": "Colorado Springs, CO",
+    "country": "USA"
+  },
+  "notes": "Founded by Josh Felton. Local brand."
+}
 ]
