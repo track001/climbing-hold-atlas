@@ -72,5 +72,16 @@
     "country": "USA"
   },
   "notes": "Founded by Josh Felton. Local brand."
+},
+  {
+  "name": "FlatHold / Arken SA",
+  "website": "https://www.flathold.com/skate/",
+  "type": "climbing brand / collaboration",
+  "headquarters": {
+    "city": "Moutier",
+    "country": "Switzerland"
+  },
+  "contacts": ["Antoine Bourcieu"],
+  "notes": "International order and direct communication through Antoine."
 }
 ]
