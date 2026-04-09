@@ -92,4 +92,16 @@
     "contacts": ["Antoine Bourcieu"],
     "notes": "International order and direct communication through Antoine."
   }
+  ,
+  {
+    "name": "Crux Forged Climbing",
+    "website": "https://cruxforgedclimbing.com/",
+    "type": "wood climbing holds",
+    "headquarters": {
+      "city": "TBD",
+      "state": null,
+      "country": "USA"
+    },
+    "notes": "Wood hold brand. Order included crimps and pinches."
+  }
 ]
