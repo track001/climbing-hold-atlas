@@ -208,39 +208,47 @@
     }
 
     .compass {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 70px;
-      height: 70px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(6px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 1px;
-      z-index: 3;
-    }
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 78px;
+  height: 78px;
+  border-radius: 999px;
+  border: 1px solid rgba(185, 255, 208, 0.28);
+  background: rgba(6, 12, 9, 0.72);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03) inset,
+    0 8px 24px rgba(0,0,0,0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  z-index: 5;
+}
 
-    .compass::before {
-      content: "N";
-      position: absolute;
-      top: 6px;
-      font-weight: bold;
-      color: #d6f5e6;
-    }
+.compass::before {
+  content: "N";
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #e7f3ec;
+}
 
-    .compass::after {
-      content: "▲";
-      position: absolute;
-      top: 16px;
-      font-size: 12px;
-      color: var(--accent);
-    }
+.compass::after {
+  content: "▲";
+  position: absolute;
+  top: 21px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  color: #9ef0bf;
+  text-shadow: 0 0 14px rgba(158, 240, 191, 0.5);
+}
 
     @keyframes pulse {
       0% { transform: scale(0.9); opacity: 0.9; }
@@ -473,7 +481,7 @@
         </div>
 
         <div class="map-frame" id="mapFrame">
-          <div class="compass"></div>
+          <div class="compass" aria-hidden="true"></div>
           <svg class="map-svg" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
             <path class="continent" d="M92,166 L160,114 L221,119 L255,145 L269,183 L247,216 L212,235 L184,265 L149,270 L118,243 L101,203 Z"></path>
             <path class="continent" d="M236,287 L265,279 L290,291 L305,333 L298,388 L280,431 L253,468 L229,454 L214,399 L217,344 Z"></path>
@@ -517,14 +525,15 @@
     };
 
     const markerPositions = {
-      "Lama Holds": { left: 52.5, top: 31.5, label: "Czech Republic" },
-      "Secret Holds": { left: 54.6, top: 29.2, label: "Poland" },
-      "Pusher": { left: 20.8, top: 28.6, label: "Utah, USA" },
-      "Real Stone Holds": { left: 26.8, top: 26.8, label: "Massachusetts, USA" },
-      "Escape Climbing": { left: 23.5, top: 25.1, label: "Minnesota, USA" },
-      "Atomik Climbing Holds": { left: 21.0, top: 28.8, label: "Utah, USA" },
-      "Murkura": { left: 23.5, top: 28.5, label: "Colorado Springs, USA" }
-    };
+  "Lama Holds": { left: 52.5, top: 31.5, label: "Czech Republic" },
+  "Secret Holds": { left: 54.6, top: 29.2, label: "Poland" },
+
+  "Escape Climbing": { left: 22.0, top: 24.3, label: "Minnesota, USA" },
+  "Real Stone Holds": { left: 28.8, top: 25.4, label: "Massachusetts, USA" },
+  "Pusher": { left: 19.2, top: 29.0, label: "Utah, USA" },
+  "Atomik Climbing Holds": { left: 21.6, top: 31.2, label: "Utah, USA" },
+  "Murkura": { left: 24.0, top: 30.8, label: "Colorado Springs, USA" }
+};
 
     async function load() {
       const brands = await fetch('./data/brands.json').then(r => r.json());
