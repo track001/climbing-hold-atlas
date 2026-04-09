@@ -8,111 +8,376 @@
   <style>
     :root {
       --bg: #0b1410;
-      --card: #101c16;
-      --muted: #9fb3a8;
-      --text: #e6f2ec;
-      --accent: #3aa76d;
-      --accent-soft: #2e7d55;
-      --border: #1f2d26;
+      --bg-2: #101a14;
+      --card: #122019;
+      --card-2: #16271f;
+      --muted: #9db3a6;
+      --text: #e7f3ec;
+      --accent: #49b276;
+      --accent-2: #78d39d;
+      --accent-soft: rgba(73, 178, 118, 0.16);
+      --border: #23362b;
+      --shadow: rgba(0, 0, 0, 0.28);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #0b1410, #121f18);
+      background:
+        radial-gradient(circle at top, #173025 0%, var(--bg) 45%),
+        linear-gradient(180deg, #0b1410, #121f18);
       color: var(--text);
     }
 
     .wrap {
-      max-width: 1100px;
+      max-width: 1180px;
       margin: auto;
-      padding: 32px 20px;
+      padding: 32px 20px 48px;
     }
 
     h1 {
-      margin-bottom: 6px;
+      margin: 0 0 8px;
+      font-size: 2.1rem;
+      letter-spacing: 0.3px;
     }
 
     .sub {
       color: var(--muted);
-      margin-bottom: 24px;
+      margin-bottom: 26px;
+      max-width: 760px;
+      line-height: 1.55;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .stat {
-      background: var(--card);
+      background: linear-gradient(180deg, var(--card), var(--card-2));
       border: 1px solid var(--border);
-      padding: 14px;
-      border-radius: 12px;
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px var(--shadow);
+    }
+
+    .stat-value {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .map-card,
+    .info-card {
+      background: linear-gradient(180deg, var(--card), var(--card-2));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 10px 24px var(--shadow);
+    }
+
+    .map-card {
+      padding: 16px;
+    }
+
+    .info-card {
+      padding: 18px;
+    }
+
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .panel-sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .map-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(73, 178, 118, 0.08), transparent 30%),
+        radial-gradient(circle at 80% 60%, rgba(120, 211, 157, 0.08), transparent 26%),
+        linear-gradient(180deg, #0c1712, #102019);
+      border: 1px solid var(--border);
+    }
+
+    .map-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.45;
+    }
+
+    .continent {
+      fill: #1a2a22;
+      stroke: #2b4336;
+      stroke-width: 1.5;
+    }
+
+    .marker {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      transform: translate(-50%, -50%);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .marker-core {
+      position: absolute;
+      inset: 4px;
+      border-radius: 999px;
+      background: var(--accent-2);
+      box-shadow:
+        0 0 0 4px rgba(120, 211, 157, 0.12),
+        0 0 18px rgba(120, 211, 157, 0.75);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .marker-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      border: 1px solid rgba(120, 211, 157, 0.55);
+      animation: pulse 2.2s infinite;
+    }
+
+    .marker:hover .marker-core,
+    .marker.active .marker-core {
+      transform: scale(1.18);
+      background: #b9ffd0;
+      box-shadow:
+        0 0 0 6px rgba(120, 211, 157, 0.16),
+        0 0 28px rgba(185, 255, 208, 0.95);
+    }
+
+    .marker-label {
+      position: absolute;
+      top: -34px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 0.78rem;
+      background: rgba(9, 15, 12, 0.95);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 5px 8px;
+      border-radius: 999px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+    }
+
+    .marker:hover .marker-label,
+    .marker.active .marker-label {
+      opacity: 1;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.9; }
+      70% { transform: scale(1.5); opacity: 0; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 11px;
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+
+    .chip:hover,
+    .chip.active {
+      background: var(--accent-soft);
+      border-color: rgba(120, 211, 157, 0.5);
     }
 
     .controls {
       display: flex;
+      flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 20px;
     }
 
     input, select {
-      padding: 10px;
-      border-radius: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
       border: 1px solid var(--border);
       background: #0e1813;
       color: var(--text);
+      min-height: 42px;
     }
 
-    input { flex: 1; }
+    input {
+      flex: 1;
+      min-width: 240px;
+    }
 
     .grid {
       display: grid;
       gap: 16px;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     }
 
     .card {
-      background: var(--card);
+      background: linear-gradient(180deg, var(--card), var(--card-2));
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 10px 24px var(--shadow);
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
     }
 
     .brand-title {
       font-size: 1.2rem;
-      margin-bottom: 6px;
+      font-weight: 700;
+      margin: 0;
     }
 
     .meta {
       color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 8px;
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+      line-height: 1.45;
     }
 
-    .type {
+    .type-badge {
+      display: inline-block;
       font-size: 0.8rem;
-      color: #a8e6c3;
-      margin-bottom: 10px;
+      color: #c8f5d8;
+      background: rgba(73, 178, 118, 0.12);
+      border: 1px solid rgba(120, 211, 157, 0.28);
+      border-radius: 999px;
+      padding: 6px 10px;
+      margin-bottom: 12px;
     }
 
     .section-title {
-      margin-top: 12px;
-      font-size: 0.85rem;
-      color: #cfe8db;
+      margin-top: 14px;
+      margin-bottom: 7px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #d5efe0;
+      letter-spacing: 0.2px;
     }
 
-    ul {
-      margin: 6px 0 0 16px;
+    .small {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .order-block {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+
+    .order-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .order-id {
+      font-weight: 700;
+      color: #d8f6e3;
+    }
+
+    .order-date {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 12px;
+      margin: 10px 0 6px;
+    }
+
+    .detail {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .detail-label {
+      color: var(--muted);
+      display: block;
+      font-size: 0.78rem;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .item-list,
+    .timeline-list {
+      margin: 8px 0 0 18px;
       padding: 0;
     }
 
+    .item-list li,
+    .timeline-list li {
+      margin-bottom: 6px;
+      line-height: 1.45;
+    }
+
     a {
-      color: #8ee0b7;
+      color: #a7f2c3;
       text-decoration: none;
     }
 
@@ -120,150 +385,564 @@
       text-decoration: underline;
     }
 
-    select.file-dropdown {
+    .file-dropdown {
       width: 100%;
       margin-top: 6px;
     }
 
+    .empty {
+      color: var(--muted);
+      font-size: 0.95rem;
+      padding: 20px 0;
+    }
+
+    .result-line {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wrap {
+        padding: 24px 14px 40px;
+      }
+    }
   </style>
 </head>
 
 <body>
-<div class="wrap">
+  <div class="wrap">
+    <h1>Climbing Hold Atlas</h1>
+    <div class="sub">
+      A living inventory of climbing holds, gear, and brands. This version adds an interactive light-up map so the dataset feels like a system, not just a list.
+    </div>
 
-  <h1>Climbing Hold Atlas</h1>
-  <div class="sub">
-    A living inventory of climbing holds, gear, and brands.
+    <div class="stats" id="stats"></div>
+
+    <div class="hero-grid">
+      <section class="map-card">
+        <div class="panel-title">Origin Map</div>
+        <div class="panel-sub">
+          Click a glowing marker to filter by brand. The right panel updates with a short summary of that company and your selected order history.
+        </div>
+
+        <div class="map-frame" id="mapFrame">
+          <svg class="map-svg" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
+            <path class="continent" d="M92,166 L160,114 L221,119 L255,145 L269,183 L247,216 L212,235 L184,265 L149,270 L118,243 L101,203 Z"></path>
+            <path class="continent" d="M236,287 L265,279 L290,291 L305,333 L298,388 L280,431 L253,468 L229,454 L214,399 L217,344 Z"></path>
+            <path class="continent" d="M430,121 L481,99 L553,104 L614,118 L666,145 L693,176 L685,211 L645,217 L614,199 L579,208 L533,193 L486,199 L442,177 L420,150 Z"></path>
+            <path class="continent" d="M505,227 L545,238 L571,278 L565,333 L541,394 L519,447 L477,446 L454,399 L451,343 L471,292 Z"></path>
+            <path class="continent" d="M700,149 L762,136 L833,152 L883,182 L919,220 L899,258 L854,270 L821,252 L796,262 L765,252 L732,215 Z"></path>
+            <path class="continent" d="M810,338 L843,353 L872,390 L856,429 L821,445 L790,427 L786,384 Z"></path>
+          </svg>
+        </div>
+
+        <div class="chips" id="brandChips"></div>
+      </section>
+
+      <aside class="info-card">
+        <div class="panel-title">Selected Brand</div>
+        <div id="selectedBrandPanel" class="small">
+          Click a map marker or brand chip to inspect one company at a time.
+        </div>
+      </aside>
+    </div>
+
+    <div class="controls">
+      <input id="search" placeholder="Search by brand, country, notes, or hold type" />
+      <select id="countryFilter">
+        <option value="all">All countries</option>
+      </select>
+      <select id="sortMode">
+        <option value="name-asc">Sort: Brand A–Z</option>
+        <option value="date-desc">Sort: Newest order</option>
+        <option value="date-asc">Sort: Oldest order</option>
+      </select>
+    </div>
+
+    <div class="result-line" id="resultLine"></div>
+    <div class="grid" id="grid"></div>
   </div>
 
-  <div class="stats" id="stats"></div>
+  <script>
+    let appState = {
+      selectedBrand: null
+    };
 
-  <div class="controls">
-    <input id="search" placeholder="Search..." />
-    <select id="countryFilter">
-      <option value="all">All countries</option>
-    </select>
-  </div>
+    const markerPositions = {
+      "Lama Holds": { left: 52.5, top: 31.5, label: "Czech Republic" },
+      "Secret Holds": { left: 54.6, top: 29.2, label: "Poland" },
+      "Pusher": { left: 20.8, top: 28.6, label: "Utah, USA" },
+      "Real Stone Holds": { left: 26.8, top: 26.8, label: "Massachusetts, USA" },
+      "Escape Climbing": { left: 23.5, top: 25.1, label: "Minnesota, USA" },
+      "Atomik Climbing Holds": { left: 21.0, top: 28.8, label: "Utah, USA" },
+      "Murkura": { left: 50, top: 50, label: "TBD" }
+    };
 
-  <div class="grid" id="grid"></div>
+    async function load() {
+      const brands = await fetch('./data/brands.json').then(r => r.json());
+      const orders = await fetch('./data/orders.json').then(r => r.json());
 
-</div>
+      buildStats(brands, orders);
+      buildCountryFilter(brands);
+      buildMap(brands, orders);
+      render(brands, orders);
 
-<script>
+      document.getElementById('search').addEventListener('input', () => render(brands, orders));
+      document.getElementById('countryFilter').addEventListener('change', () => render(brands, orders));
+      document.getElementById('sortMode').addEventListener('change', () => render(brands, orders));
+    }
 
-async function load() {
-  const brands = await fetch('./data/brands.json').then(r => r.json());
-  const orders = await fetch('./data/orders.json').then(r => r.json());
+    function buildStats(brands, orders) {
+      const visibleOrders = orders.filter(o => !o.hidden);
+      const countries = new Set(
+        brands
+          .filter(b => !b.hidden)
+          .map(b => b.headquarters?.country)
+          .filter(Boolean)
+      );
 
-  buildStats(brands, orders);
-  buildFilter(brands);
-  render(brands, orders);
+      const brandCount = brands.filter(b => !b.hidden).length;
+      const holdCompanies = brands.filter(b => !b.hidden && /hold/i.test(b.type || '')).length;
+      const internationalCount = [...countries].filter(c => c !== "USA").length;
 
-  document.getElementById('search').oninput = () => render(brands, orders);
-  document.getElementById('countryFilter').onchange = () => render(brands, orders);
-}
+      document.getElementById('stats').innerHTML = `
+        <div class="stat">
+          <div class="stat-value">${brandCount}</div>
+          <div class="stat-label">Brands tracked</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">${countries.size}</div>
+          <div class="stat-label">Countries represented</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">${visibleOrders.length}</div>
+          <div class="stat-label">Orders logged</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">${holdCompanies}</div>
+          <div class="stat-label">Hold-focused brands</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">${internationalCount}</div>
+          <div class="stat-label">Non-U.S. origins</div>
+        </div>
+      `;
+    }
 
-function buildStats(brands, orders) {
-  const countries = new Set(brands.map(b => b.headquarters?.country).filter(Boolean));
+    function buildCountryFilter(brands) {
+      const select = document.getElementById('countryFilter');
+      const countries = [...new Set(
+        brands
+          .filter(b => !b.hidden)
+          .map(b => b.headquarters?.country)
+          .filter(Boolean)
+      )].sort();
 
-  document.getElementById('stats').innerHTML = `
-    <div class="stat"><b>${brands.length}</b><br>Brands</div>
-    <div class="stat"><b>${countries.size}</b><br>Countries</div>
-    <div class="stat"><b>${orders.length}</b><br>Orders</div>
-  `;
-}
+      select.innerHTML = `<option value="all">All countries</option>`;
+      countries.forEach(country => {
+        const opt = document.createElement('option');
+        opt.value = country;
+        opt.textContent = country;
+        select.appendChild(opt);
+      });
+    }
 
-function buildFilter(brands) {
-  const select = document.getElementById('countryFilter');
-  const countries = [...new Set(brands.map(b => b.headquarters?.country).filter(Boolean))];
+    function buildMap(brands, orders) {
+      const frame = document.getElementById('mapFrame');
+      const chips = document.getElementById('brandChips');
 
-  countries.forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c;
-    opt.textContent = c;
-    select.appendChild(opt);
-  });
-}
+      frame.querySelectorAll('.marker').forEach(m => m.remove());
+      chips.innerHTML = '';
 
-function money(v, c) {
-  if (v == null) return "Not tracked";
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: c || 'USD' }).format(v);
-}
+      const visibleBrands = brands.filter(b => !b.hidden && markerPositions[b.name]);
 
-function render(brands, orders) {
-  const search = document.getElementById('search').value.toLowerCase();
-  const country = document.getElementById('countryFilter').value;
+      visibleBrands.forEach(brand => {
+        const pos = markerPositions[brand.name];
+        const button = document.createElement('button');
+        button.className = 'marker';
+        button.style.left = pos.left + '%';
+        button.style.top = pos.top + '%';
+        button.setAttribute('aria-label', brand.name);
+        button.innerHTML = `
+          <span class="marker-label">${brand.name}</span>
+          <span class="marker-ring"></span>
+          <span class="marker-core"></span>
+        `;
+        button.addEventListener('click', () => {
+          appState.selectedBrand = appState.selectedBrand === brand.name ? null : brand.name;
+          updateSelectedBrandPanel(brands, orders);
+          updateMarkerStates();
+          updateChipStates();
+          render(brands, orders);
+        });
+        frame.appendChild(button);
 
-  const filtered = brands.filter(b => {
-    const text = (b.name + b.type + b.notes + (b.headquarters?.country || "")).toLowerCase();
-    return text.includes(search) &&
-      (country === "all" || b.headquarters?.country === country);
-  });
+        const chip = document.createElement('button');
+        chip.className = 'chip';
+        chip.textContent = brand.name;
+        chip.addEventListener('click', () => {
+          appState.selectedBrand = appState.selectedBrand === brand.name ? null : brand.name;
+          updateSelectedBrandPanel(brands, orders);
+          updateMarkerStates();
+          updateChipStates();
+          render(brands, orders);
+        });
+        chip.dataset.brand = brand.name;
+        chips.appendChild(chip);
+      });
 
-  document.getElementById('grid').innerHTML = filtered.map(brand => {
+      const showAll = document.createElement('button');
+      showAll.className = 'chip';
+      showAll.textContent = 'Show All';
+      showAll.addEventListener('click', () => {
+        appState.selectedBrand = null;
+        updateSelectedBrandPanel(brands, orders);
+        updateMarkerStates();
+        updateChipStates();
+        render(brands, orders);
+      });
+      chips.prepend(showAll);
 
-    const brandOrders = orders.filter(o => o.brand === brand.name && !o.hidden);
+      updateSelectedBrandPanel(brands, orders);
+      updateMarkerStates();
+      updateChipStates();
+    }
 
-    return `
-      <div class="card">
-        <div class="brand-title">${brand.name}</div>
-        <div class="meta">${brand.headquarters?.city || ""}, ${brand.headquarters?.country || ""}</div>
-        <div class="type">${brand.type || ""}</div>
+    function updateMarkerStates() {
+      document.querySelectorAll('.marker').forEach(marker => {
+        const label = marker.getAttribute('aria-label');
+        marker.classList.toggle('active', appState.selectedBrand === label);
+      });
+    }
 
-        <div class="section-title">Website</div>
-        <a href="${brand.website}" target="_blank">${brand.website}</a>
-
-        <div class="section-title">Orders</div>
-        ${
-          brandOrders.length
-          ? `<ul>${brandOrders.map(o => `
-              <li>${o.date || "No date"} — ${money(o.total, o.currency)}</li>
-            `).join("")}</ul>`
-          : "No orders"
+    function updateChipStates() {
+      document.querySelectorAll('.chip').forEach(chip => {
+        const isShowAll = chip.textContent === 'Show All';
+        if (isShowAll) {
+          chip.classList.toggle('active', appState.selectedBrand === null);
+        } else {
+          chip.classList.toggle('active', chip.dataset.brand === appState.selectedBrand);
         }
+      });
+    }
 
-        ${
-          brandOrders.map(o => o.delivery_timeline).filter(Boolean).length
-          ? `
-            <div class="section-title">Delivery</div>
-            <ul>
-              ${brandOrders.map(o => (o.delivery_timeline || []).map(d => `<li>${d}</li>`).join("")).join("")}
+    function updateSelectedBrandPanel(brands, orders) {
+      const panel = document.getElementById('selectedBrandPanel');
+
+      if (!appState.selectedBrand) {
+        panel.innerHTML = `
+          <div style="margin-bottom:10px;"><strong>Overview mode</strong></div>
+          <div class="small">
+            The map shows the origin points of the brands in your dataset. Click a glowing marker to focus one company.
+          </div>
+          <div class="section-title">What this layer is for</div>
+          <div class="small">
+            Brand origin, selected hold types, order history, and relationship notes. It is the bridge between your raw JSON and a future richer atlas UI.
+          </div>
+        `;
+        return;
+      }
+
+      const brand = brands.find(b => b.name === appState.selectedBrand);
+      const brandOrders = orders
+        .filter(o => o.brand === appState.selectedBrand && !o.hidden)
+        .sort(sortByDateDesc);
+
+      const itemTypes = [...new Set(
+        brandOrders.flatMap(o => (o.items || []).map(i => i.type).filter(Boolean))
+      )];
+
+      panel.innerHTML = `
+        <div style="margin-bottom:8px;"><strong>${brand.name}</strong></div>
+        <div class="small">${brand.headquarters?.city || 'Unknown city'}, ${brand.headquarters?.country || 'Unknown country'}</div>
+        <div class="section-title">Company Type</div>
+        <div class="small">${brand.type || 'Not listed'}</div>
+
+        ${itemTypes.length ? `
+          <div class="section-title">Hold / Item Types Chosen</div>
+          <div class="small">${itemTypes.join(', ')}</div>
+        ` : ''}
+
+        ${brand.contacts?.length ? `
+          <div class="section-title">Contacts</div>
+          <div class="small">${brand.contacts.join(', ')}</div>
+        ` : ''}
+
+        ${brand.notes ? `
+          <div class="section-title">History / Notes</div>
+          <div class="small">${brand.notes}</div>
+        ` : ''}
+
+        ${brandOrders.length ? `
+          <div class="section-title">Orders Tracked</div>
+          <div class="small">${brandOrders.length}</div>
+        ` : ''}
+      `;
+    }
+
+    function money(v, c) {
+      if (v == null) return "Not tracked";
+      try {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: c || 'USD'
+        }).format(v);
+      } catch {
+        return `${v} ${c || ''}`.trim();
+      }
+    }
+
+    function sortByDateDesc(a, b) {
+      const da = a.date ? new Date(a.date).getTime() : 0;
+      const db = b.date ? new Date(b.date).getTime() : 0;
+      return db - da;
+    }
+
+    function sortByDateAsc(a, b) {
+      const da = a.date ? new Date(a.date).getTime() : Number.MAX_SAFE_INTEGER;
+      const db = b.date ? new Date(b.date).getTime() : Number.MAX_SAFE_INTEGER;
+      return da - db;
+    }
+
+    function prettyDate(dateStr) {
+      if (!dateStr) return 'No date';
+      const d = new Date(dateStr + 'T00:00:00');
+      if (isNaN(d.getTime())) return dateStr;
+      return d.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    }
+
+    function newestOrderDate(orders) {
+      const dated = orders.filter(o => o.date);
+      if (!dated.length) return null;
+      return dated.sort(sortByDateDesc)[0].date;
+    }
+
+    function render(brands, orders) {
+      const search = document.getElementById('search').value.toLowerCase().trim();
+      const country = document.getElementById('countryFilter').value;
+      const sortMode = document.getElementById('sortMode').value;
+
+      let visibleBrands = brands.filter(brand => {
+        if (brand.hidden) return false;
+        if (appState.selectedBrand && brand.name !== appState.selectedBrand) return false;
+        if (country !== 'all' && brand.headquarters?.country !== country) return false;
+
+        const brandOrders = orders.filter(o => o.brand === brand.name && !o.hidden);
+        const itemText = brandOrders
+          .flatMap(o => (o.items || []).map(i => `${i.name} ${i.type || ''} ${i.color || ''} ${i.details || ''}`))
+          .join(' ');
+
+        const text = [
+          brand.name,
+          brand.type,
+          brand.notes,
+          brand.company_name,
+          brand.headquarters?.city,
+          brand.headquarters?.country,
+          itemText
+        ].join(' ').toLowerCase();
+
+        return !search || text.includes(search);
+      });
+
+      if (sortMode === 'name-asc') {
+        visibleBrands.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (sortMode === 'date-desc') {
+        visibleBrands.sort((a, b) => {
+          const ao = newestOrderDate(orders.filter(o => o.brand === a.name && !o.hidden));
+          const bo = newestOrderDate(orders.filter(o => o.brand === b.name && !o.hidden));
+          return sortByDateDesc({ date: ao }, { date: bo });
+        });
+      } else if (sortMode === 'date-asc') {
+        visibleBrands.sort((a, b) => {
+          const ao = newestOrderDate(orders.filter(o => o.brand === a.name && !o.hidden));
+          const bo = newestOrderDate(orders.filter(o => o.brand === b.name && !o.hidden));
+          return sortByDateAsc({ date: ao }, { date: bo });
+        });
+      }
+
+      document.getElementById('resultLine').textContent =
+        `${visibleBrands.length} brand${visibleBrands.length === 1 ? '' : 's'} shown` +
+        (appState.selectedBrand ? ` • filtered to ${appState.selectedBrand}` : '');
+
+      const grid = document.getElementById('grid');
+
+      if (!visibleBrands.length) {
+        grid.innerHTML = `<div class="empty">No brands match the current filters.</div>`;
+        return;
+      }
+
+      grid.innerHTML = visibleBrands.map(brand => {
+        let brandOrders = orders
+          .filter(o => o.brand === brand.name && !o.hidden);
+
+        if (sortMode === 'date-desc') brandOrders = brandOrders.sort(sortByDateDesc);
+        if (sortMode === 'date-asc') brandOrders = brandOrders.sort(sortByDateAsc);
+        if (sortMode === 'name-asc') brandOrders = brandOrders.sort(sortByDateDesc);
+
+        const itemTypes = [...new Set(
+          brandOrders.flatMap(o => (o.items || []).map(i => i.type).filter(Boolean))
+        )];
+
+        return `
+          <article class="card" id="${slugify(brand.name)}">
+            <div class="brand-row">
+              <div>
+                <h2 class="brand-title">${brand.name}</h2>
+                <div class="meta">
+                  ${brand.headquarters?.city || 'Unknown city'}, ${brand.headquarters?.country || 'Unknown country'}
+                </div>
+              </div>
+            </div>
+
+            <div class="type-badge">${brand.type || 'Type not listed'}</div>
+
+            <div class="section-title">Website</div>
+            <div><a href="${brand.website}" target="_blank" rel="noopener noreferrer">${brand.website}</a></div>
+
+            ${itemTypes.length ? `
+              <div class="section-title">Item Types Chosen</div>
+              <div class="small">${itemTypes.join(', ')}</div>
+            ` : ''}
+
+            ${brand.contacts?.length ? `
+              <div class="section-title">Contacts</div>
+              <div class="small">${brand.contacts.join(', ')}</div>
+            ` : ''}
+
+            ${brand.files?.length ? `
+              <div class="section-title">Files</div>
+              <select class="file-dropdown" onchange="if(this.value) window.open(this.value, '_blank')">
+                <option value="">Open file...</option>
+                ${brand.files.map(f => `
+                  <option value="${f.url}">${f.label}</option>
+                `).join('')}
+              </select>
+            ` : ''}
+
+            ${brand.notes ? `
+              <div class="section-title">Notes</div>
+              <div class="small">${brand.notes}</div>
+            ` : ''}
+
+            <div class="section-title">Orders</div>
+            ${brandOrders.length ? brandOrders.map(order => renderOrder(order)).join('') : `<div class="small">No public orders logged.</div>`}
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderOrder(order) {
+      return `
+        <div class="order-block">
+          <div class="order-head">
+            <div class="order-id">${order.order_id ? `Order #${escapeHtml(order.order_id)}` : 'Order number not tracked'}</div>
+            <div class="order-date">${prettyDate(order.date)}</div>
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail">
+              <span class="detail-label">Total</span>
+              ${money(order.total, order.currency)}
+            </div>
+
+            <div class="detail">
+              <span class="detail-label">Shipping</span>
+              ${money(order.shipping, order.currency)}
+            </div>
+
+            <div class="detail">
+              <span class="detail-label">Tax</span>
+              ${money(order.tax, order.currency)}
+            </div>
+
+            <div class="detail">
+              <span class="detail-label">Carrier</span>
+              ${order.carrier ? escapeHtml(order.carrier) : 'Not tracked'}
+            </div>
+
+            <div class="detail">
+              <span class="detail-label">Tracking</span>
+              ${order.tracking_number ? escapeHtml(order.tracking_number) : 'Not tracked'}
+            </div>
+
+            <div class="detail">
+              <span class="detail-label">Currency</span>
+              ${order.currency || 'Not tracked'}
+            </div>
+          </div>
+
+          ${(order.items && order.items.length) ? `
+            <div class="section-title">Items</div>
+            <ul class="item-list">
+              ${order.items.map(item => `
+                <li>
+                  <strong>${escapeHtml(item.name || 'Unnamed item')}</strong>
+                  ${item.type ? ` • ${escapeHtml(item.type)}` : ''}
+                  ${item.color ? ` • ${escapeHtml(item.color)}` : ''}
+                  ${item.quantity ? ` • qty ${escapeHtml(String(item.quantity))}` : ''}
+                  ${item.price != null ? ` • ${money(item.price, order.currency)}` : ''}
+                  ${item.details ? `<br><span class="small">${escapeHtml(item.details)}</span>` : ''}
+                </li>
+              `).join('')}
             </ul>
-          `
-          : ""
-        }
+          ` : ''}
 
-        ${
-          brand.files
-          ? `
-            <div class="section-title">Files</div>
-            <select class="file-dropdown" onchange="if(this.value) window.open(this.value)">
-              <option value="">Open file...</option>
-              ${brand.files.map(f => `<option value="${f.url}">${f.label}</option>`).join("")}
-            </select>
-          `
-          : ""
-        }
+          ${order.delivery_timeline?.length ? `
+            <div class="section-title">Delivery Timeline</div>
+            <ul class="timeline-list">
+              ${order.delivery_timeline.map(entry => `<li>${escapeHtml(entry)}</li>`).join('')}
+            </ul>
+          ` : ''}
 
-        ${
-          brand.contacts
-          ? `<div class="section-title">Contacts</div>${brand.contacts.join(", ")}`
-          : ""
-        }
+          ${order.notes ? `
+            <div class="section-title">Order Notes</div>
+            <div class="small">${escapeHtml(order.notes)}</div>
+          ` : ''}
+        </div>
+      `;
+    }
 
-        ${
-          brand.notes
-          ? `<div class="section-title">Notes</div>${brand.notes}`
-          : ""
-        }
+    function slugify(text) {
+      return String(text || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+    }
 
-      </div>
-    `;
-  }).join("");
-}
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
 
-load();
-
-</script>
+    load().catch(err => {
+      document.getElementById('grid').innerHTML = `
+        <div class="empty">
+          Data failed to load. Check <code>data/brands.json</code> and <code>data/orders.json</code> for valid JSON.
+          <br><br>
+          ${escapeHtml(err.message)}
+        </div>
+      `;
+    });
+  </script>
 </body>
 </html>
