@@ -5,34 +5,61 @@
     "date": "2026-03-18",
     "currency": "EUR",
     "shipping": 29.95,
+    "tax": 0.0,
     "total": 90.12,
     "items": [
-      { "name": "Round Edge / Sloper 60", "type": "sloper", "price": 10.30 },
-      { "name": "2-finger pocket S", "type": "pocket", "price": 8.58 },
-      { "name": "Ball 3/5 - Sloper", "type": "sloper", "price": 8.58 },
-      { "name": "Volume TWO", "type": "volume", "price": 32.71 }
-    ]
+      {
+        "name": "Round Edge / Sloper 60",
+        "type": "sloper",
+        "quantity": 1,
+        "price": 10.3
+      },
+      {
+        "name": "2-finger pocket S",
+        "type": "pocket",
+        "quantity": 1,
+        "price": 8.58
+      },
+      {
+        "name": "Ball 3/5 - Sloper",
+        "type": "sloper",
+        "quantity": 1,
+        "price": 8.58
+      },
+      {
+        "name": "Volume TWO",
+        "type": "volume",
+        "quantity": 1,
+        "price": 32.71
+      }
+    ],
+    "notes": "Out-of-EU order."
   },
   {
     "brand": "Secret Holds",
+    "order_id": "P2026/03105",
+    "date": "2026-03-27",
     "currency": "USD",
-    "shipping": 20.00,
-    "total": 40.00,
+    "shipping": 20.0,
+    "tax": 0.0,
+    "total": 40.0,
+    "carrier": "FedEx",
+    "tracking_number": "870010333250",
     "items": [
-      { "name": "T-Shirt M", "type": "apparel", "price": 20.00 },
-      { "name": "Hold Sample", "type": "hold", "price": 0.00 }
-    ]
-  },
-  {
-    "brand": "FlatHold / Arken SA",
-    "date": "2026-03-19",
-    "currency": "EUR",
-    "shipping": 45.00,
-    "total": 195.00,
-    "items": [
-      { "name": "Skateboard Deck", "type": "skate", "price": 150.00 }
+      {
+        "name": "T-Shirt Secret Holds M",
+        "type": "apparel",
+        "quantity": 1,
+        "price": 20.0
+      },
+      {
+        "name": "COMP Sample Hold (Yellow)",
+        "type": "hold sample",
+        "quantity": 1,
+        "price": 0.0
+      }
     ],
-    "notes": "Paid via wire, shipped April 1, 2026"
+    "notes": "Direct outreach led to relationship with Maciej Bucki. Sample from COMP line requested in yellow. Shipment sent with FedEx."
   },
   {
     "brand": "Pusher",
@@ -40,28 +67,91 @@
     "date": "2026-03-19",
     "currency": "USD",
     "shipping": 6.13,
+    "tax": 0.0,
     "total": 94.21,
     "items": [
-      { "name": "Black Hoodie M", "type": "apparel", "price": 60.00 },
-      { "name": "Granite Screw-Ons #19", "type": "hold", "price": 28.08 }
+      {
+        "name": "Black on Black Hoodie - Medium",
+        "type": "apparel",
+        "quantity": 1,
+        "price": 60.0
+      },
+      {
+        "name": "Granite Screw-Ons #19 - Jet Black",
+        "type": "hold",
+        "quantity": 1,
+        "price": 28.08
+      }
     ]
   },
   {
     "brand": "Real Stone Holds",
     "order_id": "1081",
+    "date": "2026-03-19",
     "currency": "USD",
-    "shipping": 0.00,
-    "total": 99.00,
+    "shipping": 0.0,
+    "tax": 0.0,
+    "total": 99.0,
+    "carrier": "Shopify",
     "items": [
-      { "name": "Real Stone Edges", "type": "hold", "price": 99.00 }
+      {
+        "name": "Real Stone Edges",
+        "type": "hold",
+        "quantity": 1,
+        "price": 99.0
+      }
+    ],
+    "delivery_timeline": [
+      "Confirmed - Mar 19",
+      "On its way - Mar 25",
+      "Out for delivery - Mar 25",
+      "Delivered - Mar 25"
     ]
   },
   {
     "brand": "Escape Climbing",
+    "order_id": "EC-53926",
+    "date": "2026-03-19",
     "currency": "USD",
+    "shipping": null,
+    "tax": null,
+    "total": 85.44,
     "items": [
-      { "name": "Factory Seconds Box", "type": "hold", "price": null }
-    ]
+      {
+        "name": "DT Incut Pinches",
+        "type": "hold",
+        "color": "White",
+        "quantity": 1,
+        "price": 48.7
+      },
+      {
+        "name": "DT Dot Crimps",
+        "type": "hold",
+        "color": "Blue",
+        "quantity": 1,
+        "price": 36.74
+      }
+    ],
+    "notes": "Custom discount applied."
+  },
+  {
+    "brand": "Escape Climbing",
+    "order_id": "EC-47990",
+    "date": "2025-10-13",
+    "currency": "USD",
+    "shipping": null,
+    "tax": null,
+    "total": null,
+    "items": [
+      {
+        "name": "Factory Seconds",
+        "type": "hold",
+        "quantity": 1,
+        "details": "10lbs + Bolt Service",
+        "price": null
+      }
+    ],
+    "notes": "Randomized factory seconds order."
   },
   {
     "brand": "Atomik Climbing Holds",
@@ -69,9 +159,18 @@
     "date": "2026-03-18",
     "currency": "USD",
     "shipping": 13.22,
+    "tax": 0.67,
     "total": 27.09,
+    "carrier": "UPS Ground",
+    "tracking_number": "1Z7Y3A980396230335",
     "items": [
-      { "name": "Foothold 10-pack", "type": "foothold", "price": 13.20 }
+      {
+        "name": "Deal of the Day $1.32 Per Foothold (10-pack) RANDOM COLORS",
+        "type": "foothold",
+        "quantity": 1,
+        "price": 13.2,
+        "details": "Wall Type: 3/4\" plywood; Hardware: No Hardware"
+      }
     ]
   }
 ]
