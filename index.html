@@ -527,15 +527,14 @@
     const markerPositions = {
   "Lama Holds": { left: 52.5, top: 31.5, label: "Czech Republic" },
   "Secret Holds": { left: 54.6, top: 29.2, label: "Poland" },
+  "FlatHold / Arken SA": { left: 50.2, top: 35.2, label: "Switzerland" },
 
   "Escape Climbing": { left: 22.0, top: 24.3, label: "Minnesota, USA" },
   "Real Stone Holds": { left: 28.8, top: 25.4, label: "Massachusetts, USA" },
   "Pusher": { left: 19.2, top: 29.0, label: "Utah, USA" },
   "Atomik Climbing Holds": { left: 21.6, top: 31.2, label: "Utah, USA" },
-  "Murkura": { left: 24.0, top: 30.8, label: "Colorado Springs, USA" },
-  "FlatHold / Arken SA": { left: 50.2, top: 35.2, label: "Switzerland" },
+  "Murkura": { left: 24.0, top: 30.8, label: "Colorado Springs, USA" }
 };
-
     async function load() {
       const brands = await fetch('./data/brands.json').then(r => r.json());
       const orders = await fetch('./data/orders.json').then(r => r.json());
