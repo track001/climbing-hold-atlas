@@ -64,24 +64,24 @@
     "notes": "Foothold-focused purchase."
   },
   {
-  "name": "Murkura",
-  "website": "https://murkura.com/",
-  "type": "bouldering streetwear",
-  "headquarters": {
-    "city": "Colorado Springs, CO",
-    "country": "USA"
+    "name": "Murkura",
+    "website": "https://murkura.com/",
+    "type": "bouldering streetwear",
+    "headquarters": {
+      "city": "Colorado Springs, CO",
+      "country": "USA"
+    },
+    "notes": "Founded by Josh Felton. Local brand."
   },
-  "notes": "Founded by Josh Felton. Local brand."
-},
   {
-  "name": "FlatHold / Arken SA",
-  "website": "https://www.flathold.com/skate/",
-  "type": "climbing brand / collaboration",
-  "headquarters": {
-    "city": "Moutier",
-    "country": "Switzerland"
-  },
-  "contacts": ["Antoine Bourcieu"],
-  "notes": "International order and direct communication through Antoine."
-}
+    "name": "FlatHold / Arken SA",
+    "website": "https://www.flathold.com/skate/",
+    "type": "climbing brand / collaboration",
+    "headquarters": {
+      "city": "Moutier",
+      "country": "Switzerland"
+    },
+    "contacts": ["Antoine Bourcieu"],
+    "notes": "International order and direct communication through Antoine."
+  }
 ]
