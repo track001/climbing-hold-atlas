@@ -21,7 +21,7 @@
     }
 
     * {
-      box-sizing: border-box; 
+      box-sizing: border-box;
     }
 
     html {
@@ -121,6 +121,7 @@
     .map-frame {
       position: relative;
       width: 100%;
+      height: 320px;
       aspect-ratio: 16 / 9;
       border-radius: 14px;
       overflow: hidden;
@@ -204,6 +205,41 @@
     .marker:hover .marker-label,
     .marker.active .marker-label {
       opacity: 1;
+    }
+
+    .compass {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 70px;
+      height: 70px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      z-index: 3;
+    }
+
+    .compass::before {
+      content: "N";
+      position: absolute;
+      top: 6px;
+      font-weight: bold;
+      color: #d6f5e6;
+    }
+
+    .compass::after {
+      content: "▲";
+      position: absolute;
+      top: 16px;
+      font-size: 12px;
+      color: var(--accent);
     }
 
     @keyframes pulse {
@@ -437,6 +473,7 @@
         </div>
 
         <div class="map-frame" id="mapFrame">
+          <div class="compass"></div>
           <svg class="map-svg" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
             <path class="continent" d="M92,166 L160,114 L221,119 L255,145 L269,183 L247,216 L212,235 L184,265 L149,270 L118,243 L101,203 Z"></path>
             <path class="continent" d="M236,287 L265,279 L290,291 L305,333 L298,388 L280,431 L253,468 L229,454 L214,399 L217,344 Z"></path>
@@ -486,7 +523,7 @@
       "Real Stone Holds": { left: 26.8, top: 26.8, label: "Massachusetts, USA" },
       "Escape Climbing": { left: 23.5, top: 25.1, label: "Minnesota, USA" },
       "Atomik Climbing Holds": { left: 21.0, top: 28.8, label: "Utah, USA" },
-      "Murkura": { left: 50, top: 50, label: "TBD" }
+      "Murkura": { left: 23.5, top: 28.5, label: "Colorado Springs, USA" }
     };
 
     async function load() {
