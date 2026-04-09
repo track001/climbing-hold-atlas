@@ -154,23 +154,23 @@
     "notes": "Randomized factory seconds order."
   },
   {
-  "brand": "FlatHold / Arken SA",
-  "order_id": "SK-2026-01",
-  "date": "2026-03-19",
-  "currency": "EUR",
-  "shipping": 45.00,
-  "tax": null,
-  "total": 195.00,
-  "items": [
-    {
-      "name": "SK Hold",
-      "type": "special item",
-      "quantity": 1,
-      "price": 150.00
-    }
-  ]
-  "notes": "Reserved through direct email communication. Paid by international wire."
-}
+    "brand": "FlatHold / Arken SA",
+    "order_id": "SK-2026-01",
+    "date": "2026-03-19",
+    "currency": "EUR",
+    "shipping": 45.0,
+    "tax": null,
+    "total": 195.0,
+    "items": [
+      {
+        "name": "SK Hold",
+        "type": "special item",
+        "quantity": 1,
+        "price": 150.0
+      }
+    ],
+    "notes": "Reserved through direct email communication. Paid by international wire."
+  },
   {
     "brand": "Atomik Climbing Holds",
     "order_id": "112365",
